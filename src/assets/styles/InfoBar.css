@@ -1,0 +1,9 @@
+#InfoBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 10px;
+}
