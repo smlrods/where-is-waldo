@@ -1,10 +1,11 @@
 import '../assets/styles/InfoBar.css';
 
-function InfoBar() {
+function InfoBar(props) {
+  const { stopwatch, charactersToFound } = props;
   return (
     <div id='InfoBar'>
       <p>Logo</p>
-      <p>Stopwatch</p>
+      <p>{(stopwatch / 1000).toFixed(2)}s</p>
       <p>Amount</p>
     </div>
   )
