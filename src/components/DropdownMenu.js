@@ -2,7 +2,7 @@ import '../assets/styles/DropdownMenu.css';
 
 
 function DropdownMenu(props) {
-  const {position, hitPosition, setShowMenu} = props;
+  const {position, hitPosition, setShowMenu, setClickHistory, clickHistory} = props;
 
   const answers = [
     {
@@ -39,14 +39,14 @@ function DropdownMenu(props) {
     return {x, y}
   }
 
-  const checkAnswer = (position, index) => {
+  const checkAnswer = (hitPosition, position, index) => {
     const answersRanger = getAnswerRanger(answers[index].startX, answers[index].endX, answers[index].startY, answers[index].endY);
-    const isHitX = answersRanger.x.some((element) => element === position.x);
-    const isHitY = answersRanger.y.some((element) => element === position.y);
+    const isHitX = answersRanger.x.some((element) => element === hitPosition.x);
+    const isHitY = answersRanger.y.some((element) => element === hitPosition.y);
     if (isHitX && isHitY) {
-      console.log('hit');
+      setClickHistory([...clickHistory, {x: position.x,y: position.y, hit: true}])
     } else {
-      console.log('miss');
+      setClickHistory([...clickHistory, {x: position.x,y: position.y, hit: false}])
     }
     setShowMenu(false);
   }
@@ -54,9 +54,9 @@ function DropdownMenu(props) {
   return (
     <div id="DropdownMenu"
           style={{left: `${position.x}px`, top: `${position.y}px` }}>
-      <div onClick={() => checkAnswer(hitPosition, 0)}>Option</div>
-      <div onClick={() => checkAnswer(hitPosition, 1)}>Option</div>
-      <div onClick={() => checkAnswer(hitPosition, 2)}>Option</div>
+      <div onClick={() => checkAnswer(hitPosition, position, 0)}>Option</div>
+      <div onClick={() => checkAnswer(hitPosition, position, 1)}>Option</div>
+      <div onClick={() => checkAnswer(hitPosition, position, 2)}>Option</div>
     </div>
   );
 }

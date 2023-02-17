@@ -7,3 +7,33 @@ img {
   position: relative;
   overflow: hidden;
 }
+
+#GameImage > span {
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, -50%);
+  font-weight: bolder;
+  user-select: none;
+  font-size: 16px;
+}
+
+.correct {
+  color: green;
+  animation-name: fontpulse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.wrong {
+  color: red;
+}
+
+@keyframes fontpulse {
+  0% {
+    font-size: 16px;
+  } 50% {
+    font-size: 18px;
+  } 100% {
+    font-size: 16px;
+  }
+}

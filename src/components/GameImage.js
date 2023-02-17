@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { click } from '@testing-library/user-event/dist/click';
+import { useEffect, useState } from 'react';
 import imgGame from '../assets/images/the-loc-nar.jpg';
 import '../assets/styles/GameImage.css';
 import DropdownMenu from './DropdownMenu';
@@ -7,6 +8,7 @@ function GameImage() {
   const [showMenu, setShowMenu] = useState(false);
   const [imagePosition, setImagePosition] = useState(null);
   const [hitPosition, setHitPosition] = useState(null);
+  const [clickHistory, setClickHistory] = useState([]);
 
   const handlePositions = (event) => {
     if (showMenu) {
@@ -26,10 +28,22 @@ function GameImage() {
     setShowMenu(true)
   }
 
+  const showHitMessage = (position) => {
+    if (position.hit) {
+      return <span className='correct' key={`${position.x}${position.y}${position.hit}`} style={{left: position.x, top: position.y}}>CORRECT!</span>;
+    } else {
+      return <span className='wrong' key={`${position.x}${position.y}${position.hit}`} style={{left: position.x, top: position.y}}>WRONG!</span>;
+    }
+
+  }
+
   return (
     <div id='GameImage'>
       <img src={imgGame} draggable='false' onClick={(event) => handlePositions(event)}/>
-      {showMenu ? <DropdownMenu setShowMenu={setShowMenu} position={imagePosition} hitPosition={hitPosition}/> : null}
+      {showMenu ? <DropdownMenu clickHistory={clickHistory} setClickHistory={setClickHistory} setShowMenu={setShowMenu} position={imagePosition} hitPosition={hitPosition}/> : null}
+      {clickHistory.map((position) => {
+        return showHitMessage(position); 
+      })}
     </div>
   )
 }

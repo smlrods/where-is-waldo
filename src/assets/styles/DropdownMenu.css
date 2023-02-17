@@ -1,6 +1,7 @@
 #DropdownMenu {
   position: absolute;
   background: white;
+  z-index: 1;
 }
 
 #DropdownMenu > div {
