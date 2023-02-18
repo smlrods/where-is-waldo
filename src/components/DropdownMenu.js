@@ -12,16 +12,16 @@ function DropdownMenu(props) {
       endY: 539,
     },
     {
-      startX: 1009,
-      endX: 1072,
-      startY: 436,
-      endY: 539,
+      startX: 1663,
+      endX: 1693,
+      startY: 8316,
+      endY: 8360,
     },
     {
-      startX: 1009,
-      endX: 1072,
-      startY: 436,
-      endY: 539,
+      startX: 1182,
+      endX: 1207,
+      startY: 7738,
+      endY: 7785,
     },
   ];
 
@@ -54,9 +54,9 @@ function DropdownMenu(props) {
   return (
     <div id="DropdownMenu"
           style={{left: `${position.x}px`, top: `${position.y}px` }}>
-      <div onClick={() => checkAnswer(hitPosition, position, 0)}>Option</div>
-      <div onClick={() => checkAnswer(hitPosition, position, 1)}>Option</div>
-      <div onClick={() => checkAnswer(hitPosition, position, 2)}>Option</div>
+      <div onClick={() => checkAnswer(hitPosition, position, 0)}>Yubaba</div>
+      <div onClick={() => checkAnswer(hitPosition, position, 1)}>Wilson</div>
+      <div onClick={() => checkAnswer(hitPosition, position, 2)}>The Knight</div>
     </div>
   );
 }
