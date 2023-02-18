@@ -4,9 +4,15 @@ import GameImage from "./components/GameImage";
 import InfoBar from "./components/InfoBar";
 
 function App() {
-  const [start, setStart] = useState(false);
+  const [start, setStart] = useState(true);
   const [stopwatch, setStopwatch] = useState(0);
-  const [charactersToFound, setCharactersToFound] = useState({});
+  const [charactersToFind, setCharactersToFind] = useState(
+    [
+      {name: 'Yubaba', found: false},
+      {name: 'Wilson', found: false},
+      {name: 'The Knight', found: false},
+    ]
+  );
 
   useEffect(() => {
     let interval = null;
@@ -20,6 +26,12 @@ function App() {
     return () => clearInterval(interval);
   }, [start]);
 
+  useEffect(() => {
+    if (charactersToFind.every((element) => element.found === true)) {
+      setStart(false);
+    }
+  }, [charactersToFind]);
+
   const handleStart = () => {
     setStart(true);
   };
@@ -31,8 +43,8 @@ function App() {
 
   return (
     <div className="App">
-      <InfoBar stopwatch={stopwatch} charactersToFound={charactersToFound}/>
-      <GameImage stopwatch={stopwatch} setCharactersToFound={setCharactersToFound}/>
+      <InfoBar stopwatch={stopwatch} charactersToFind={charactersToFind}/>
+      <GameImage stopwatch={stopwatch} charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind}/>
     </div>
   );
 }

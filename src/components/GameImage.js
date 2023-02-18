@@ -4,7 +4,8 @@ import imgGame from '../assets/images/the-loc-nar.jpg';
 import '../assets/styles/GameImage.css';
 import DropdownMenu from './DropdownMenu';
 
-function GameImage() {
+function GameImage(props) {
+  const {charactersToFind, setCharactersToFind} = props;
   const [showMenu, setShowMenu] = useState(false);
   const [imagePosition, setImagePosition] = useState(null);
   const [hitPosition, setHitPosition] = useState(null);
@@ -40,7 +41,7 @@ function GameImage() {
   return (
     <div id='GameImage'>
       <img src={imgGame} draggable='false' onClick={(event) => handlePositions(event)}/>
-      {showMenu ? <DropdownMenu clickHistory={clickHistory} setClickHistory={setClickHistory} setShowMenu={setShowMenu} position={imagePosition} hitPosition={hitPosition}/> : null}
+      {showMenu ? <DropdownMenu charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} clickHistory={clickHistory} setClickHistory={setClickHistory} setShowMenu={setShowMenu} position={imagePosition} hitPosition={hitPosition}/> : null}
       {clickHistory.map((position) => {
         return showHitMessage(position); 
       })}

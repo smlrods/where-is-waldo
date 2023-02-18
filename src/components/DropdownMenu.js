@@ -2,7 +2,7 @@ import '../assets/styles/DropdownMenu.css';
 
 
 function DropdownMenu(props) {
-  const {position, hitPosition, setShowMenu, setClickHistory, clickHistory} = props;
+  const {position, hitPosition, setShowMenu, setClickHistory, clickHistory, setCharactersToFind, charactersToFind} = props;
 
   const answers = [
     {
@@ -45,6 +45,13 @@ function DropdownMenu(props) {
     const isHitY = answersRanger.y.some((element) => element === hitPosition.y);
     if (isHitX && isHitY) {
       setClickHistory([...clickHistory, {x: position.x,y: position.y, hit: true}])
+      setCharactersToFind(charactersToFind.map((element, i) => {
+        if (i === index) {
+          element.found = true;
+          return element;
+        }
+        return element;
+      }));
     } else {
       setClickHistory([...clickHistory, {x: position.x,y: position.y, hit: false}])
     }

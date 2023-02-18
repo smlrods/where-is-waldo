@@ -1,7 +1,7 @@
 import '../assets/styles/InfoBar.css';
 
 function InfoBar(props) {
-  const { stopwatch, charactersToFound } = props;
+  const { stopwatch, charactersToFind} = props;
   return (
     <div id='InfoBar'>
       <p>Logo</p>
