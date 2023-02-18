@@ -4,7 +4,7 @@ import GameImage from "./components/GameImage";
 import InfoBar from "./components/InfoBar";
 
 function App() {
-  const [start, setStart] = useState(true);
+  const [start, setStart] = useState(false);
   const [stopwatch, setStopwatch] = useState(0);
   const [charactersToFind, setCharactersToFind] = useState(
     [

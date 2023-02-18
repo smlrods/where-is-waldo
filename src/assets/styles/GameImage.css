@@ -28,6 +28,12 @@ img {
   color: red;
 }
 
+.found {
+  text-decoration: line-through;
+  pointer-events: none;
+  color: gray;
+}
+
 @keyframes fontpulse {
   0% {
     font-size: 16px;

@@ -61,9 +61,14 @@ function DropdownMenu(props) {
   return (
     <div id="DropdownMenu"
           style={{left: `${position.x}px`, top: `${position.y}px` }}>
-      <div onClick={() => checkAnswer(hitPosition, position, 0)}>Yubaba</div>
-      <div onClick={() => checkAnswer(hitPosition, position, 1)}>Wilson</div>
-      <div onClick={() => checkAnswer(hitPosition, position, 2)}>The Knight</div>
+      {charactersToFind.map((character, index) => {
+        if (character.found) {
+          return <div className='found' onClick={() => checkAnswer(hitPosition, position, index)}>{character.name}</div>
+        }
+
+        return <div onClick={() => checkAnswer(hitPosition, position, index)}>{character.name}</div>
+
+      })}
     </div>
   );
 }

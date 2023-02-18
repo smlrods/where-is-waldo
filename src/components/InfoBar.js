@@ -6,7 +6,7 @@ function InfoBar(props) {
     <div id='InfoBar'>
       <p>Logo</p>
       <p>{(stopwatch / 1000).toFixed(2)}s</p>
-      <p>Amount</p>
+      <div id='remaining'>{charactersToFind.filter(character => !character.found).length}</div>
     </div>
   )
 }
