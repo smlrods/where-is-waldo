@@ -31,6 +31,11 @@ function App() {
 
   const handleStart = () => {
     setStart(true);
+    setStopwatch(0);
+    setCharactersToFind(charactersToFind.map((character) => {
+      character.found = false;
+      return character;
+    }));
   };
 
   const handleStop = () => {
@@ -41,7 +46,7 @@ function App() {
   return (
     <div className="App">
       <InfoBar stopwatch={stopwatch} charactersToFind={charactersToFind}/>
-      <GameImage stopwatch={stopwatch} charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} imgToPlay={imgToPlay}/>
+      <GameImage start={start} stopwatch={stopwatch} charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} imgToPlay={imgToPlay}/>
       {!start ? <ImageToPlay setImgToPlay={setImgToPlay} imgToPlay={imgToPlay} setCharactersToFind={setCharactersToFind} charactersToFind={charactersToFind} handleStart={handleStart} /> : null}
     </div>
   );

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../assets/styles/GameImage.css';
 import DropdownMenu from './DropdownMenu';
 
 function GameImage(props) {
-  const {charactersToFind, setCharactersToFind, imgToPlay} = props;
+  const {charactersToFind, setCharactersToFind, imgToPlay, start} = props;
   const [showMenu, setShowMenu] = useState(false);
   const [imagePosition, setImagePosition] = useState(null);
   const [hitPosition, setHitPosition] = useState(null);
@@ -33,8 +33,11 @@ function GameImage(props) {
     } else {
       return <span className='wrong' key={`${position.x}${position.y}${position.hit}`} style={{left: position.x, top: position.y}}>WRONG!</span>;
     }
-
   }
+
+  useEffect(() => {
+    setClickHistory([]);
+  }, [start]);
 
   return (
     <div id='GameImage'>
