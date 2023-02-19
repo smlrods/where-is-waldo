@@ -8,3 +8,41 @@
   padding: 10px;
   z-index: 1;
 }
+
+#InfoBar .info-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 5px;
+  background: white;
+  user-select: none;
+  border: 1px solid black;
+}
+
+#InfoBar .info-dropdown > div {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#InfoBar .info-dropdown img {
+  width: 70px;
+  border-radius: 50%;
+}
+
+#remaining {
+  background: black;
+  color: white;
+  padding: 5px 10px;
+  border: 1px solid black;
+  user-select: none;
+}
+
+#remaining:hover {
+  background: white;
+  color: black;
+}
+
+.found {
+  text-decoration: line-through;
+}
