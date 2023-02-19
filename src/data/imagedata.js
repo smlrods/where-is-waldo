@@ -3,6 +3,9 @@ import img2 from '../assets/images/universe-113.jpg'
 import yubabaImg from '../assets/images/yubaba.webp';
 import wilsonImg from '../assets/images/wilson.png';
 import knightImg from '../assets/images/HK_Knight.webp';
+import benderImg from '../assets/images/bender.jpeg';
+import waldoImg from '../assets/images/waldo.png';
+import totoroImg from '../assets/images/totoro.webp';
 
 const imagedata = [
   {
@@ -18,9 +21,9 @@ const imagedata = [
     title: 'Universe 113',
     img: img2,
     charactersToFind: [
-      {name: 'Yubaba 2', found: false, img: yubabaImg},
-      {name: 'Wilson', found: false, img: wilsonImg},
-      {name: 'The Knight', found: false, img: knightImg},
+      {name: 'Totoro', found: false, img: totoroImg},
+      {name: 'Waldo', found: false, img: waldoImg},
+      {name: 'Bender', found: false, img: benderImg},
     ],
   }
 ]

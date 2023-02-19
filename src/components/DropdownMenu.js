@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react';
 import '../assets/styles/DropdownMenu.css';
+import imagedata from '../data/imagedata';
+import ImageToPlay from './ImageToPlay';
 
-
-function DropdownMenu(props) {
-  const {position, hitPosition, setShowMenu, setClickHistory, clickHistory, setCharactersToFind, charactersToFind} = props;
-
-  const answers = [
+const dataAnswers = [
+  [
     {
       startX: 1009,
       endX: 1072,
@@ -23,7 +23,40 @@ function DropdownMenu(props) {
       startY: 7738,
       endY: 7785,
     },
-  ];
+  ],
+  [
+    {
+      startX: 1340,
+      endX: 1382,
+      startY: 1441,
+      endY: 1505,
+    },
+    {
+      startX: 276,
+      endX: 303,
+      startY: 1706,
+      endY: 1775,
+    },
+    {
+      startX: 1737,
+      endX: 1759,
+      startY: 1899,
+      endY: 1926,
+    },
+  ],
+]
+
+function DropdownMenu(props) {
+  const {position, hitPosition, setShowMenu, setClickHistory, clickHistory, setCharactersToFind, charactersToFind, imgToPlay} = props;
+  const [answers, setAnswers] = useState(null);
+
+  useEffect(() => {
+    imagedata.map((data, index) => {
+      if (data.img === imgToPlay) {
+        setAnswers(dataAnswers[index]);
+      }
+    })
+  }, []);
 
   const getAnswerRanger = (startX, endX, startY, endY) => {
     const x = [];
