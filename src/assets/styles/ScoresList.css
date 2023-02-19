@@ -1,0 +1,43 @@
+#ScoresList {
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  user-select: none;
+}
+
+#ScoresList > div {
+  width: 50vw;
+  height: 75vh;
+  background: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-content: center;
+  place-items: center;
+  padding: 20px;
+}
+
+#ScoresList > div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#ScoresList button {
+  border: 1px solid black;
+  background: white;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#ScoresList button:hover {
+  background: black;
+  color: white;
+}

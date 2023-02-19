@@ -3,6 +3,7 @@ import './assets/styles/App.css';
 import GameImage from "./components/GameImage";
 import InfoBar from "./components/InfoBar";
 import ImageToPlay from './components/ImageToPlay';
+import ScoresList from './components/ScoresList';
 import imagedata from './data/imagedata';
 
 function App() {
@@ -43,11 +44,22 @@ function App() {
     setStopwatch(0);
   };
 
+  const handleWindows = () => {
+    if (stopwatch === 0) {
+      return (
+        <ImageToPlay setImgToPlay={setImgToPlay} imgToPlay={imgToPlay} setCharactersToFind={setCharactersToFind} charactersToFind={charactersToFind} handleStart={handleStart} /> 
+      );
+    } 
+    return (
+      <ScoresList stopwatch={stopwatch} setStopwatch={setStopwatch} />
+    )
+  }
+
   return (
     <div className="App">
       <InfoBar stopwatch={stopwatch} charactersToFind={charactersToFind}/>
       <GameImage start={start} stopwatch={stopwatch} charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} imgToPlay={imgToPlay}/>
-      {!start ? <ImageToPlay setImgToPlay={setImgToPlay} imgToPlay={imgToPlay} setCharactersToFind={setCharactersToFind} charactersToFind={charactersToFind} handleStart={handleStart} /> : null}
+      {!start ? handleWindows() : null}
     </div>
   );
 }
