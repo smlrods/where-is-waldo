@@ -63,10 +63,10 @@ function DropdownMenu(props) {
           style={{left: `${position.x}px`, top: `${position.y}px` }}>
       {charactersToFind.map((character, index) => {
         if (character.found) {
-          return <div className='found' onClick={() => checkAnswer(hitPosition, position, index)}>{character.name}</div>
+          return <div key={`drop-${character.name}`} className='found' onClick={() => checkAnswer(hitPosition, position, index)}>{character.name}</div>
         }
 
-        return <div onClick={() => checkAnswer(hitPosition, position, index)}>{character.name}</div>
+        return <div key={`drop-${character.name}`} onClick={() => checkAnswer(hitPosition, position, index)}>{character.name}</div>
 
       })}
     </div>
