@@ -6,7 +6,7 @@ function InfoBar(props) {
   const [showDropdown, setShowDropdown] = useState(false);
   return (
     <div id='InfoBar'>
-      <p>Logo</p>
+      <p>FindUs</p>
       <p>{(stopwatch / 1000).toFixed(2)}s</p>
       <div id='remaining' onClick={() => setShowDropdown(!showDropdown)}>{charactersToFind.filter(character => !character.found).length}</div>
       { showDropdown ? 
