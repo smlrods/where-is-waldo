@@ -92,11 +92,6 @@ function App() {
     }));
   };
 
-  const handleStop = () => {
-    setStart(false);
-    setStopwatch(0);
-  };
-
   const handleWindows = () => {
     if (stopwatch === 0) {
       return (
