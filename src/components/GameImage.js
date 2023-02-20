@@ -3,7 +3,7 @@ import '../assets/styles/GameImage.css';
 import DropdownMenu from './DropdownMenu';
 
 function GameImage(props) {
-  const {charactersToFind, setCharactersToFind, imgToPlay, start} = props;
+  const {charactersToFind, setCharactersToFind, imgToPlay, start, db} = props;
   const [showMenu, setShowMenu] = useState(false);
   const [imagePosition, setImagePosition] = useState(null);
   const [hitPosition, setHitPosition] = useState(null);
@@ -42,7 +42,7 @@ function GameImage(props) {
   return (
     <div id='GameImage'>
       <img src={imgToPlay} draggable='false' onClick={(event) => handlePositions(event)}/>
-      {showMenu ? <DropdownMenu charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} clickHistory={clickHistory} setClickHistory={setClickHistory} setShowMenu={setShowMenu} position={imagePosition} hitPosition={hitPosition} imgToPlay={imgToPlay}/> : null}
+      {showMenu ? <DropdownMenu db={db} charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} clickHistory={clickHistory} setClickHistory={setClickHistory} setShowMenu={setShowMenu} position={imagePosition} hitPosition={hitPosition} imgToPlay={imgToPlay}/> : null}
       {clickHistory.map((position) => {
         return showHitMessage(position); 
       })}

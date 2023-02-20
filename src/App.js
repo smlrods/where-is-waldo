@@ -6,6 +6,24 @@ import ImageToPlay from './components/ImageToPlay';
 import ScoresList from './components/ScoresList';
 import imagedata from './data/imagedata';
 
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDRwibtERv67OzQmiLFxG_yH556kQwQS20",
+  authDomain: "smlrods-findus.firebaseapp.com",
+  projectId: "smlrods-findus",
+  storageBucket: "smlrods-findus.appspot.com",
+  messagingSenderId: "1086055179831",
+  appId: "1:1086055179831:web:fd40bac3b79b769e4781b2"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
 function App() {
   const [start, setStart] = useState(false);
   const [stopwatch, setStopwatch] = useState(0);
@@ -58,7 +76,7 @@ function App() {
   return (
     <div className="App">
       <InfoBar stopwatch={stopwatch} charactersToFind={charactersToFind}/>
-      <GameImage start={start} stopwatch={stopwatch} charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} imgToPlay={imgToPlay}/>
+      <GameImage db={db} start={start} stopwatch={stopwatch} charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} imgToPlay={imgToPlay}/>
       {!start ? handleWindows() : null}
     </div>
   );
