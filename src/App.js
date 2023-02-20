@@ -7,7 +7,7 @@ import ScoresList from './components/ScoresList';
 import imagedata from './data/imagedata';
 
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { collection, getFirestore, getDocs, doc, getDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDRwibtERv67OzQmiLFxG_yH556kQwQS20",
@@ -29,7 +29,9 @@ function App() {
   const [stopwatch, setStopwatch] = useState(0);
   const [charactersToFind, setCharactersToFind] = useState(imagedata[0].charactersToFind);
   const [imgToPlay, setImgToPlay] = useState(imagedata[0].img); 
+  const [highScores, setHighScores] = useState(null);
 
+  // Stopwatch interval
   useEffect(() => {
     let interval = null;
     if (start) {
@@ -42,9 +44,42 @@ function App() {
     return () => clearInterval(interval);
   }, [start]);
 
+  const findIndex = () => {
+    let index = '0';
+    imagedata.map((data, i) => {
+      if (data.img === imgToPlay) {
+        index = i.toString();
+      }
+    });
+    return index;
+  }
+
+  const getScores = async () => {
+    let scores = [];
+    let index = findIndex();
+
+    // request the highest scores
+    const querySnapshot = await getDocs(collection(db, `high-scores-${index}`));
+    querySnapshot.forEach((doc) => {
+      scores.push(doc.data())
+    });
+
+    // arrange in ascending order
+    scores.sort((a, b) => a.time - b.time);
+
+    // take only the top 10
+    if (scores.length > 10) {
+      scores = scores.slice(0, 11);
+    }
+
+    setHighScores(scores);
+    if (start) setStart(false);
+  }
+  
+  // End the game and get scores
   useEffect(() => {
     if (charactersToFind.every((element) => element.found === true)) {
-      setStart(false);
+      getScores();
     }
   }, [charactersToFind]);
 
@@ -69,7 +104,7 @@ function App() {
       );
     } 
     return (
-      <ScoresList stopwatch={stopwatch} setStopwatch={setStopwatch} />
+      <ScoresList db={db} findIndex={findIndex} getScores={getScores} highScores={highScores} setHighScores={setHighScores} stopwatch={stopwatch} setStopwatch={setStopwatch} />
     )
   }
 

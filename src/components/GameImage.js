@@ -35,6 +35,7 @@ function GameImage(props) {
     }
   }
 
+  // Clear click history
   useEffect(() => {
     setClickHistory([]);
   }, [start]);

@@ -28,6 +28,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+}
+
+#ScoresList > div > div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 #ScoresList button {
@@ -40,4 +49,10 @@
 #ScoresList button:hover {
   background: black;
   color: white;
+}
+
+#ScoresList label,
+#ScoresList input{
+  display: block;
+  text-align: center;
 }
