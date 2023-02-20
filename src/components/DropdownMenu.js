@@ -1,11 +1,9 @@
 import '../assets/styles/DropdownMenu.css';
 import { collection, getDocs } from 'firebase/firestore';
-import imagedata from '../data/imagedata';
 
 function DropdownMenu(props) {
   const {
-    position, hitPosition, setShowMenu, setClickHistory, clickHistory, setCharactersToFind, charactersToFind, imgToPlay, db,
-  } = props;
+    position, hitPosition, setShowMenu, setClickHistory, clickHistory, setCharactersToFind, charactersToFind, imgToPlay, db, imagedata} = props;
 
   const getAnswerRanger = (startX, endX, startY, endY) => {
     const x = [];

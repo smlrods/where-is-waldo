@@ -23,7 +23,6 @@ function ScoresList(props) {
       time: stopwatch,
     });
     await getScores();
-    // await setStopwatch(0);
   };
 
   const addScoreInput = (stopwatch) => (
@@ -41,7 +40,6 @@ function ScoresList(props) {
           <h1>High Scores</h1>
           <ol>
             {highScores.map((score) => {
-              console.log(score);
               return <li key={`${score.name}${score.time}`}>{`${score.name} ${(score.time / 1000).toFixed(2)}s`}</li>;
             })}
           </ol>
