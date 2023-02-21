@@ -1,14 +1,29 @@
 import { useEffect, useState } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import './assets/styles/App.css';
-import { collection, getDocs } from 'firebase/firestore';
 import GameImage from './components/GameImage';
 import InfoBar from './components/InfoBar';
 import ImageToPlay from './components/ImageToPlay';
 import ScoresList from './components/ScoresList';
 
+const firebaseConfig = {
+  apiKey: 'AIzaSyDRwibtERv67OzQmiLFxG_yH556kQwQS20',
+  authDomain: 'smlrods-findus.firebaseapp.com',
+  projectId: 'smlrods-findus',
+  storageBucket: 'smlrods-findus.appspot.com',
+  messagingSenderId: '1086055179831',
+  appId: '1:1086055179831:web:fd40bac3b79b769e4781b2',
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
 let imagedata;
-function App(props) {
-  const {db} = props;
+function App() {
   const [start, setStart] = useState(false);
   const [stopwatch, setStopwatch] = useState(0);
   const [charactersToFind, setCharactersToFind] = useState();
@@ -20,11 +35,10 @@ function App(props) {
       const querySnapshot = await getDocs(collection(db, 'imagesdata'));
       querySnapshot.forEach((doc) => {
         imagedata = doc.data().data;
-        console.log(imagedata);
         setCharactersToFind(imagedata[0].charactersToFind);
         setImgToPlay(imagedata[0].img);
       });
-    }
+    };
     getData();
   }, []);
 
@@ -47,6 +61,7 @@ function App(props) {
       if (data.img === imgToPlay) {
         index = i.toString();
       }
+      return data;
     });
     return index;
   };
@@ -85,29 +100,58 @@ function App(props) {
     setStart(true);
     setStopwatch(0);
     setCharactersToFind(charactersToFind.map((character) => {
-      character.found = false;
-      return character;
+      const modifiedCharacter = { ...character, found: false };
+      return modifiedCharacter;
     }));
   };
 
   const handleWindows = () => {
     if (stopwatch === 0) {
       return (
-        <ImageToPlay imagedata={imagedata} setImgToPlay={setImgToPlay} imgToPlay={imgToPlay} setCharactersToFind={setCharactersToFind} charactersToFind={charactersToFind} handleStart={handleStart} />
+        <ImageToPlay
+          imagedata={imagedata}
+          setImgToPlay={setImgToPlay}
+          imgToPlay={imgToPlay}
+          setCharactersToFind={setCharactersToFind}
+          charactersToFind={charactersToFind}
+          handleStart={handleStart}
+        />
       );
     }
     return (
-      <ScoresList db={db} findIndex={findIndex} getScores={getScores} highScores={highScores} setHighScores={setHighScores} stopwatch={stopwatch} setStopwatch={setStopwatch} />
+      <ScoresList
+        db={db}
+        findIndex={findIndex}
+        getScores={getScores}
+        highScores={highScores}
+        setHighScores={setHighScores}
+        stopwatch={stopwatch}
+        setStopwatch={setStopwatch}
+      />
     );
   };
 
   return (
     <div className="App">
-      {imagedata &&
-      <InfoBar stopwatch={stopwatch} charactersToFind={charactersToFind} /> }
-      {imagedata && 
-      <GameImage db={db} imagedata={imagedata} start={start} stopwatch={stopwatch} charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} imgToPlay={imgToPlay} />
-      }
+      {imagedata
+      && (
+      <InfoBar
+        stopwatch={stopwatch}
+        charactersToFind={charactersToFind}
+      />
+      )}
+      {imagedata
+      && (
+      <GameImage
+        db={db}
+        imagedata={imagedata}
+        start={start}
+        stopwatch={stopwatch}
+        charactersToFind={charactersToFind}
+        setCharactersToFind={setCharactersToFind}
+        imgToPlay={imgToPlay}
+      />
+      )}
       {!start && imagedata ? handleWindows() : null}
     </div>
   );

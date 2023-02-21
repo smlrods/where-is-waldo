@@ -2,7 +2,9 @@ import { useState } from 'react';
 import '../assets/styles/ImageToPlay.css';
 
 function ImageToPlay(props) {
-  const {imgToPlay, setImgToPlay, charactersToFind, setCharactersToFind, handleStart, imagedata} = props;
+  const {
+    imgToPlay, setImgToPlay, charactersToFind, setCharactersToFind, handleStart, imagedata,
+  } = props;
   const [title, setTitle] = useState(imagedata[0].title);
 
   const prevImage = () => {
@@ -19,7 +21,7 @@ function ImageToPlay(props) {
         }
       });
     }
-  }
+  };
 
   const nextImage = () => {
     if (imgToPlay === imagedata[imagedata.length - 1].img) {
@@ -35,31 +37,29 @@ function ImageToPlay(props) {
         }
       });
     }
-  }
+  };
 
   return (
-    <div id='ImageToPlay'>
+    <div id="ImageToPlay">
       <span onClick={() => prevImage()}>&lt;</span>
       <div>
-        <img draggable='false' src={imgToPlay}/>
+        <img draggable="false" src={imgToPlay} />
         <div>
           <h1>{title}</h1>
           <div>
-            {charactersToFind.map((character) => {
-              return (
-                <div key={character.name}>
-                  <img draggable='false'src={character.img}/>
-                  <h1>{character.name}</h1>
-                </div>
-              )
-            })}
+            {charactersToFind.map((character) => (
+              <div key={character.name}>
+                <img draggable="false" src={character.img} />
+                <h1>{character.name}</h1>
+              </div>
+            ))}
           </div>
           <button onClick={() => handleStart()}>START</button>
         </div>
       </div>
       <span onClick={() => nextImage()}>&gt;</span>
     </div>
-  )
+  );
 }
 
 export default ImageToPlay;

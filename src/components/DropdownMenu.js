@@ -1,9 +1,20 @@
 import '../assets/styles/DropdownMenu.css';
 import { collection, getDocs } from 'firebase/firestore';
+import PropTypes from 'prop-types';
 
 function DropdownMenu(props) {
   const {
-    position, hitPosition, setShowMenu, setClickHistory, clickHistory, setCharactersToFind, charactersToFind, imgToPlay, db, imagedata} = props;
+    position,
+    hitPosition,
+    setShowMenu,
+    setClickHistory,
+    clickHistory,
+    setCharactersToFind,
+    charactersToFind,
+    imgToPlay,
+    db,
+    imagedata,
+  } = props;
 
   const getAnswerRanger = (startX, endX, startY, endY) => {
     const x = [];
@@ -70,5 +81,17 @@ function DropdownMenu(props) {
     </div>
   );
 }
+
+DropdownMenu.propTypes = {
+  position: PropTypes.objectOf(PropTypes.string),
+  hitPosition: PropTypes.objectOf(PropTypes.string),
+  setShowMenu: PropTypes.func,
+  setClickHistory: PropTypes.func,
+  clickHistory: PropTypes.arrayOf(PropTypes.object),
+  setCharactersToFind: PropTypes.func,
+  charactersToFind: PropTypes.arrayOf(PropTypes.object),
+  imgToPlay: PropTypes.string,
+  imagedata: PropTypes.array,
+};
 
 export default DropdownMenu;

@@ -39,9 +39,7 @@ function ScoresList(props) {
         <div>
           <h1>High Scores</h1>
           <ol>
-            {highScores.map((score) => {
-              return <li key={`${score.name}${score.time}`}>{`${score.name} ${(score.time / 1000).toFixed(2)}s`}</li>;
-            })}
+            {highScores.map((score) => <li key={`${score.name}${score.time}`}>{`${score.name} ${(score.time / 1000).toFixed(2)}s`}</li>)}
           </ol>
         </div>
         <div>

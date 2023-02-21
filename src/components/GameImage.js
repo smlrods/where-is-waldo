@@ -3,7 +3,9 @@ import '../assets/styles/GameImage.css';
 import DropdownMenu from './DropdownMenu';
 
 function GameImage(props) {
-  const { charactersToFind, setCharactersToFind, imgToPlay, start, db, imagedata } = props;
+  const {
+    charactersToFind, setCharactersToFind, imgToPlay, start, db, imagedata,
+  } = props;
   const [showMenu, setShowMenu] = useState(false);
   const [imagePosition, setImagePosition] = useState(null);
   const [hitPosition, setHitPosition] = useState(null);
