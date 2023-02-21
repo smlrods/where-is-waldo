@@ -1,6 +1,5 @@
 import '../assets/styles/DropdownMenu.css';
 import { collection, getDocs } from 'firebase/firestore';
-import PropTypes from 'prop-types';
 
 function DropdownMenu(props) {
   const {
@@ -19,18 +18,18 @@ function DropdownMenu(props) {
   const getAnswerRanger = (startX, endX, startY, endY) => {
     const x = [];
     const y = [];
-    for (let i = startX; i <= endX; i++) {
+    for (let i = startX; i <= endX; i += 1) {
       x.push(i);
     }
 
-    for (let i = startY; i <= endY; i++) {
+    for (let i = startY; i <= endY; i += 1) {
       y.push(i);
     }
 
     return { x, y };
   };
 
-  const checkAnswer = (hitPosition, position, index) => {
+  const checkAnswer = (hitPositionAns, positionAns, index) => {
     const answers = [];
     let answersRanger;
     const getAnswers = async (indexAnswers) => {
@@ -39,16 +38,21 @@ function DropdownMenu(props) {
         answers.push(doc.data());
       });
 
-      answersRanger = getAnswerRanger(answers[index].startX, answers[index].endX, answers[index].startY, answers[index].endY);
+      answersRanger = getAnswerRanger(
+        answers[index].startX,
+        answers[index].endX,
+        answers[index].startY,
+        answers[index].endY,
+      );
 
-      const isHitX = answersRanger.x.some((element) => element === hitPosition.x);
-      const isHitY = answersRanger.y.some((element) => element === hitPosition.y);
+      const isHitX = answersRanger.x.some((element) => element === hitPositionAns.x);
+      const isHitY = answersRanger.y.some((element) => element === hitPositionAns.y);
       if (isHitX && isHitY) {
-        setClickHistory([...clickHistory, { x: position.x, y: position.y, hit: true }]);
+        setClickHistory([...clickHistory, { x: positionAns.x, y: positionAns.y, hit: true }]);
         setCharactersToFind(charactersToFind.map((element, i) => {
           if (i === index) {
-            element.found = true;
-            return element;
+            const newElement = { ...element, found: true };
+            return newElement;
           }
           return element;
         }));
@@ -57,11 +61,7 @@ function DropdownMenu(props) {
       }
     };
 
-    imagedata.map((data, index) => {
-      if (data.img === imgToPlay) {
-        getAnswers(index.toString());
-      }
-    });
+    getAnswers(imagedata.findIndex((data) => data.img === imgToPlay).toString());
 
     setShowMenu(false);
   };
@@ -73,25 +73,32 @@ function DropdownMenu(props) {
     >
       {charactersToFind.map((character, index) => {
         if (character.found) {
-          return <div key={`drop-${character.name}`} className="found" onClick={() => checkAnswer(hitPosition, position, index)}>{character.name}</div>;
+          return (
+            <div
+              key={`drop-${character.name}`}
+              role="presentation"
+              className="found"
+              onClick={() => checkAnswer(hitPosition, position, index)}
+              onKeyDown={() => checkAnswer(hitPosition, position, index)}
+            >
+              {character.name}
+            </div>
+          );
         }
 
-        return <div key={`drop-${character.name}`} onClick={() => checkAnswer(hitPosition, position, index)}>{character.name}</div>;
+        return (
+          <div
+            key={`drop-${character.name}`}
+            role="presentation"
+            onClick={() => checkAnswer(hitPosition, position, index)}
+            onKeyDown={() => checkAnswer(hitPosition, position, index)}
+          >
+            {character.name}
+          </div>
+        );
       })}
     </div>
   );
 }
-
-DropdownMenu.propTypes = {
-  position: PropTypes.objectOf(PropTypes.string),
-  hitPosition: PropTypes.objectOf(PropTypes.string),
-  setShowMenu: PropTypes.func,
-  setClickHistory: PropTypes.func,
-  clickHistory: PropTypes.arrayOf(PropTypes.object),
-  setCharactersToFind: PropTypes.func,
-  charactersToFind: PropTypes.arrayOf(PropTypes.object),
-  imgToPlay: PropTypes.string,
-  imagedata: PropTypes.array,
-};
 
 export default DropdownMenu;

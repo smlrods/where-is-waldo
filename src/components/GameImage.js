@@ -43,8 +43,29 @@ function GameImage(props) {
 
   return (
     <div id="GameImage">
-      <img src={imgToPlay} draggable="false" onClick={(event) => handlePositions(event)} />
-      {showMenu ? <DropdownMenu imagedata={imagedata} db={db} charactersToFind={charactersToFind} setCharactersToFind={setCharactersToFind} clickHistory={clickHistory} setClickHistory={setClickHistory} setShowMenu={setShowMenu} position={imagePosition} hitPosition={hitPosition} imgToPlay={imgToPlay} /> : null}
+      <img
+        src={imgToPlay}
+        alt="game"
+        draggable="false"
+        role="presentation"
+        onClick={(event) => handlePositions(event)}
+      />
+      {showMenu
+        ? (
+          <DropdownMenu
+            imagedata={imagedata}
+            db={db}
+            charactersToFind={charactersToFind}
+            setCharactersToFind={setCharactersToFind}
+            clickHistory={clickHistory}
+            setClickHistory={setClickHistory}
+            setShowMenu={setShowMenu}
+            position={imagePosition}
+            hitPosition={hitPosition}
+            imgToPlay={imgToPlay}
+          />
+        )
+        : null}
       {clickHistory.map((position) => showHitMessage(position))}
     </div>
   );

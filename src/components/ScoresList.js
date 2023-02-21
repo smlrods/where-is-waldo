@@ -8,28 +8,30 @@ function ScoresList(props) {
   } = props;
   const [name, setName] = useState('');
 
-  const isHighScore = (stopwatch) => {
+  const isHighScore = (time) => {
     if (highScores.length < 10) return true;
-    return highScores.some((score) => score.time >= stopwatch);
+    return highScores.some((score) => score.time >= time);
   };
 
   // Add score to DB
-  const addScoreToDB = async (stopwatch, event) => {
+  const addScoreToDB = async (time, event) => {
     event.target.remove();
     const index = findIndex();
     if (name === '') setName('USR');
     await addDoc(collection(db, `high-scores-${index}`), {
       name: name.toUpperCase(),
-      time: stopwatch,
+      time,
     });
     await getScores();
   };
 
-  const addScoreInput = (stopwatch) => (
+  const addScoreInput = (time) => (
     <div>
-      <label>Name</label>
-      <input maxLength="3" onChange={(event) => setName(event.target.value)} />
-      <button onClick={(event) => addScoreToDB(stopwatch, event)}>Send</button>
+      <label htmlFor="nameInput">
+        Name
+        <input id="nameInput" maxLength="3" onChange={(event) => setName(event.target.value)} />
+      </label>
+      <button type="button" onClick={(event) => addScoreToDB(time, event)}>Send</button>
     </div>
   );
 
@@ -49,7 +51,7 @@ function ScoresList(props) {
             s
           </p>
           {isHighScore(stopwatch) ? addScoreInput(stopwatch) : null}
-          <button onClick={() => setStopwatch(0)}>Restart</button>
+          <button type="button" onClick={() => setStopwatch(0)}>Restart</button>
         </div>
       </div>
     </div>

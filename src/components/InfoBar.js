@@ -11,13 +11,19 @@ function InfoBar(props) {
         {(stopwatch / 1000).toFixed(2)}
         s
       </p>
-      <div id="remaining" onClick={() => setShowDropdown(!showDropdown)}>{charactersToFind.filter((character) => !character.found).length}</div>
+      <div
+        id="remaining"
+        role="presentation"
+        onClick={() => setShowDropdown(!showDropdown)}
+      >
+        {charactersToFind.filter((character) => !character.found).length}
+      </div>
       { showDropdown
         ? (
           <div className="info-dropdown">
             {charactersToFind.map((character) => (
               <div key={`info-${character.name}`}>
-                <img src={character.img} />
+                <img src={character.img} alt={character.name} />
                 <p className={character.found ? 'found' : ''}>{character.name}</p>
               </div>
             ))}

@@ -19,6 +19,7 @@ function ImageToPlay(props) {
           setCharactersToFind(imagedata[index - 1].charactersToFind);
           setTitle(imagedata[index - 1].title);
         }
+        return data;
       });
     }
   };
@@ -35,29 +36,30 @@ function ImageToPlay(props) {
           setCharactersToFind(imagedata[index + 1].charactersToFind);
           setTitle(imagedata[index + 1].title);
         }
+        return data;
       });
     }
   };
 
   return (
     <div id="ImageToPlay">
-      <span onClick={() => prevImage()}>&lt;</span>
+      <span role="presentation" onClick={() => prevImage()} onKeyDown={() => prevImage()}>&lt;</span>
       <div>
-        <img draggable="false" src={imgToPlay} />
+        <img draggable="false" alt="gameimg" src={imgToPlay} />
         <div>
           <h1>{title}</h1>
           <div>
             {charactersToFind.map((character) => (
               <div key={character.name}>
-                <img draggable="false" src={character.img} />
+                <img draggable="false" src={character.img} alt={character.name} />
                 <h1>{character.name}</h1>
               </div>
             ))}
           </div>
-          <button onClick={() => handleStart()}>START</button>
+          <button type="button" onClick={() => handleStart()}>START</button>
         </div>
       </div>
-      <span onClick={() => nextImage()}>&gt;</span>
+      <span role="presentation" onClick={() => nextImage()} onKeyDown={() => nextImage()}>&gt;</span>
     </div>
   );
 }
